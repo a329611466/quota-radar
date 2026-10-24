@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="felt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 · Watermark</title>
+    <meta name="robots" content="noindex" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('cr.theme');
+          if (t !== 'felt' && t !== 'ink' && t !== 'memphis' && t !== 'neon') t = 'felt';
+          document.documentElement.dataset.theme = t;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'felt';
+        }
+      })();
+    </script>
+    <style>
+      :root {
+        --bg: #f2e9dd;
+        --surface: #fbf6ec;
+        --ink: #3d3229;
+        --ink-2: #6b5c4e;
+        --ink-3: #6d5f52;
+        --accent: #c8643c;
+        --bc: #b3a08c;
+        --font-display: 'Quicksand', 'ZCOOL KuaiLe', system-ui, sans-serif;
+        --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      :root[data-theme='ink'] {
+        --bg: #fff6e4;
+        --surface: #fffdf6;
+        --ink: #2a2018;
+        --ink-2: #5c5347;
+        --ink-3: #6f6558;
+        --accent: #2f9e6a;
+        --bc: #2a2018;
+        --font-display: 'Baloo 2', 'ZCOOL KuaiLe', system-ui, sans-serif;
+      }
+      :root[data-theme='memphis'] {
+        --bg: #fdf7e6;
+        --surface: #ffffff;
+        --ink: #23203a;
+        --ink-2: #55516e;
+        --ink-3: #5f5b76;
+        --accent: #ff4f8b;
+        --bc: #23203a;
+        --font-display: 'Fredoka', 'ZCOOL KuaiLe', system-ui, sans-serif;
+      }
+      :root[data-theme='neon'] {
+        --bg: #14142a;
+        --surface: #1e1e40;
+        --ink: #eef0ff;
+        --ink-2: #a9a9d6;
+        --ink-3: #8f8fc0;
+        --accent: #6ef0d0;
+        --bc: #4a4a80;
+        --font-display: 'Chakra Petch', 'ZCOOL KuaiLe', system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Quicksand', system-ui, -apple-system, 'PingFang SC', sans-serif;
+        line-height: 1.65;
+      }
+      .card {
+        max-width: 460px;
+        padding: 34px 32px 30px;
+        border: 2px dashed var(--bc);
+        border-radius: 22px;
+        background: var(--surface);
+        text-align: center;
+      }
+      .code {
+        font-family: var(--font-mono);
+        font-size: 46px;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+        margin: 0 0 10px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-family: var(--font-display);
+        font-size: 21px;
+        font-weight: 600;
+      }
+      p {
+        margin: 0 0 20px;
+        font-size: 14px;
+        color: var(--ink-2);
+      }
+      a {
+        display: inline-block;
+        padding: 9px 20px;
+        border: 2px solid var(--bc);
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent);
+      }
+      .hint {
+        margin: 18px 0 0;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--ink-3);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <p class="code">404</p>
+      <h1>这条路径没有记录</h1>
+      <p>重置历史只覆盖最近五个自然月，更早的记录请去归档或数据接口查询。</p>
+      <a href="./">回到首页</a>
+      <p class="hint">Watermark · 额度水位</p>
+    </main>
+  </body>
+</html>

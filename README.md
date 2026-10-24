@@ -13,6 +13,45 @@
 
 功能参照 [codex-resets.com](https://codex-resets.com/)，实现完全独立：静态数据快照 + 纯前端渲染，无后端、无数据库、无账号体系。
 
+## 部署
+
+站内资源全部使用相对路径，**部署到任意平台都无需改动代码**（域名根目录或子路径均可）。
+
+### Cloudflare Workers
+
+```bash
+npm install
+npx wrangler login      # 首次需浏览器授权
+npm run build
+npx wrangler deploy
+```
+
+产物地址形如 `https://quota-watermark.<你的子域>.workers.dev`。首次部署会要求注册 `workers.dev` 子域名。
+
+也可用 npm script：`npm run deploy:workers`（= build + `wrangler deploy`）。
+
+### 自动部署（GitHub Actions）
+
+`.github/workflows/deploy.yml` 会在 push 到 `main` 时自动构建并部署。需要在 GitHub 仓库 **Settings → Secrets and variables → Actions** 里加两个 secret：
+
+| Secret | 值 |
+| --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare 后台 My Profile → API Tokens 创建，权限选 **Workers Scripts: Edit** + **Account: Read** |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 后台 Workers & Pages → Overview → Account ID |
+
+公开仓库的 Actions 用标准 runner 无限免费。
+
+### 部署配置文件
+
+| 文件 | 作用 |
+| --- | --- |
+| `wrangler.toml` | Workers 静态资源配置（目录、404 处理、尾斜杠策略） |
+| `public/_headers` | 响应头规则：带 hash 的 assets 长缓存；`data/resets.json` 与 `sw.js` 不缓存；`.ics` / RSS 的 MIME 与缓存；数据接口开 CORS |
+| `public/_redirects` | 重定向规则。**将来绑定自有域名时在这里加 301，务必保留旧地址** |
+| `public/404.html` | 404 页，`not_found_handling = "404-page"` 需要它 |
+
+> Workers Static Assets 原生支持 `_headers` / `_redirects`，无需额外插件。
+
 ## 快速开始
 
 ```bash
