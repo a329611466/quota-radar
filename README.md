@@ -30,16 +30,51 @@ npx wrangler deploy
 
 也可用 npm script：`npm run deploy:workers`（= build + `wrangler deploy`）。
 
-### 自动部署（GitHub Actions）
+### 自动部署（可选，GitHub Actions）
 
-`.github/workflows/deploy.yml` 会在 push 到 `main` 时自动构建并部署。需要在 GitHub 仓库 **Settings → Secrets and variables → Actions** 里加两个 secret：
+仓库默认不启用 CI——用手动 `wrangler deploy` 即可。需要"push 完自动上线"时，把下面内容存为 `.github/workflows/deploy.yml`（公开仓库的 Actions 用标准 runner 无限免费）：
+
+```yaml
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+```
+
+同时在 GitHub 仓库 **Settings → Secrets and variables → Actions** 里加两个 secret：
 
 | Secret | 值 |
 | --- | --- |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare 后台 My Profile → API Tokens 创建，权限选 **Workers Scripts: Edit** + **Account: Read** |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 后台 Workers & Pages → Overview → Account ID |
 
-公开仓库的 Actions 用标准 runner 无限免费。
+> 注意：用 `gh` 命令行推送时，token 需要额外的 `workflow` 权限才能创建工作流文件。
+> 先执行 `gh auth refresh -s workflow` 授权一次即可；或者直接在 GitHub 网页上新建该文件。
 
 ### 部署配置文件
 
