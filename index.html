@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="5; url=./en/index.html" />
+    <title>Watermark — 额度水位</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #0a100c;
+        color: #c8f7d0;
+        font: 14px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+      a { color: #33ff66; }
+    </style>
+    <script>
+      (function () {
+        var supported = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
+        var target = null;
+        try {
+          var pref = localStorage.getItem('cr.locale');
+          if (pref && supported.indexOf(pref) !== -1) target = pref;
+        } catch (e) {}
+        if (!target) {
+          var nl = navigator.language || 'en';
+          if (nl.indexOf('zh') === 0) target = /TW|HK|Hant/i.test(nl) ? 'zh-TW' : 'zh-CN';
+          else if (nl.indexOf('ja') === 0) target = 'ja';
+          else if (nl.indexOf('ko') === 0) target = 'ko';
+          else target = 'en';
+        }
+        location.replace('./' + target + '/index.html');
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting… <a href="./en/index.html">English</a></p>
+  </body>
+</html>

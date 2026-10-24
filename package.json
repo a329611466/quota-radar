@@ -1,0 +1,26 @@
+{
+  "name": "quota-watermark",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/postbuild.mjs && node scripts/generate-feeds.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit --pretty",
+    "refresh-data": "node scripts/refresh-data.mjs",
+    "deploy:pages": "npm run build && npx wrangler pages deploy dist --project-name=quota-watermark",
+    "deploy:workers": "npm run build && npx wrangler deploy"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

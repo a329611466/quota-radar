@@ -1,0 +1,10 @@
+# Cloudflare Pages / Workers 重定向规则
+# 文档：https://developers.cloudflare.com/pages/configuration/redirects/
+
+# —— 以后买了自有域名，在这里加 301，别删掉旧地址 ——
+# 301 https://quota-watermark.example.com/* https://old.pages.dev/:splat 301
+#
+# 形如：把旧平台子域名永久指向新域名
+#   /en/*  https://quota-watermark.example.com/en/:spline  301
+#
+# 注意：改这里之后，务必先在旧地址上验证新地址能正常访问，否则会形成跳转循环。

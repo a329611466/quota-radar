@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watermark — 主题方向对比</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&family=ZCOOL+KuaiLe&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 28px 20px 60px;
+        background: #22201c;
+        color: #f4efe6;
+        font-family: system-ui, -apple-system, 'PingFang SC', sans-serif;
+      }
+      .intro { max-width: 1200px; margin: 0 auto 26px; }
+      .intro h1 { font-family: 'ZCOOL KuaiLe', system-ui; font-size: 26px; margin: 0 0 8px; }
+      .intro p { margin: 0; color: #b9ada0; font-size: 14px; line-height: 1.7; }
+      .grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 26px;
+      }
+      .theme {
+        border-radius: 18px;
+        overflow: hidden;
+        background: #16150f;
+        border: 1px solid #3a352c;
+      }
+      .theme__label {
+        padding: 12px 16px;
+        font-family: 'Fredoka', system-ui;
+        font-size: 14px;
+        letter-spacing: .04em;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        border-bottom: 1px solid #3a352c;
+      }
+      .theme__label b { font-weight: 600; }
+      .theme__label span { color: #8f857a; font-size: 12px; }
+      .canvas { padding: 22px 20px 26px; }
+
+      /* ===== 共享的组件结构 ===== */
+      .mock-brand { font-family: 'Baloo 2', 'Fredoka', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 14px; }
+      .mock-sub { font-family: 'ZCOOL KuaiLe', sans-serif; font-size: 13px; margin-bottom: 14px; }
+      .mock-hero { padding: 16px 18px; margin-bottom: 14px; }
+      .mock-label { font-family: 'Press Start 2P', monospace; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+      .mock-figure { font-family: 'Baloo 2', 'ZCOOL KuaiLe', sans-serif; font-size: 40px; font-weight: 800; line-height: 1.1; }
+      .mock-time { font-family: monospace; font-size: 11px; opacity: .65; margin-top: 6px; }
+      .mock-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+      .mock-stat { padding: 10px 12px; }
+      .mock-stat dt { font-size: 9px; letter-spacing: .08em; text-transform: uppercase; opacity: .72; margin-bottom: 3px; }
+      .mock-stat dd { font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 700; margin: 0; line-height: 1.1; }
+      .mock-cal { padding: 14px 16px; margin-bottom: 14px; }
+      .mock-cal__head { font-size: 11px; margin-bottom: 10px; }
+      .mock-cells { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+      .mock-cell { aspect-ratio: 1; border-radius: 5px; }
+      .mock-feed { padding: 12px 14px; display: flex; gap: 10px; }
+      .mock-avatar { width: 30px; height: 30px; border-radius: 50%; flex: none; }
+      .mock-bubble { flex: 1; padding: 10px 12px; }
+      .mock-bubble p { margin: 0 0 6px; font-size: 12.5px; line-height: 1.5; }
+      .mock-bubble a { font-family: monospace; font-size: 10px; }
+
+      /* ================= A 墨线糖果 ================= */
+      .a { background: #fff6e4; color: #2a2018; }
+      .a .mock-hero { background: #fffdf6; border: 2px solid #2a2018; border-radius: 16px; box-shadow: 5px 5px 0 #2a2018; transform: rotate(-.5deg); }
+      .a .mock-figure { background: #ffd84d; color: #2a2018; display: inline-block; padding: 0 14px 4px; border: 2px solid #2a2018; border-radius: 10px; }
+      .a .mock-stat { border: 2px solid #2a2018; border-radius: 14px; box-shadow: 4px 4px 0 #2a2018; }
+      .a .mock-stat:nth-child(1) { background: #b9e6a6; transform: rotate(-1.2deg); }
+      .a .mock-stat:nth-child(2) { background: #c9b6f7; transform: rotate(.9deg); }
+      .a .mock-stat:nth-child(3) { background: #ffcf8f; transform: rotate(-.7deg); }
+      .a .mock-cal { background: #fffdf6; border: 2px solid #2a2018; border-radius: 16px; box-shadow: 5px 5px 0 #2a2018; }
+      .a .mock-cell { background: #f2e4c8; }
+      .a .mock-cell.on { background: #2f9e6a; border: 1.5px solid #2a2018; box-shadow: 1.5px 1.5px 0 #2a2018; }
+      .a .mock-cell.bank { background: #ffc96b; border: 1.5px solid #2a2018; box-shadow: 1.5px 1.5px 0 #2a2018; }
+      .a .mock-feed { background: #fffdf6; border: 2px solid #2a2018; border-radius: 14px; box-shadow: 4px 4px 0 #2a2018; }
+      .a .mock-avatar { background: #ffd84d; border: 2px solid #2a2018; }
+      .a .mock-bubble { background: #fff6e4; border: 2px solid #2a2018; border-radius: 12px; }
+
+      /* ================= B 夜光票根 ================= */
+      .b { background: #14142a; color: #eef0ff; }
+      .b .mock-hero { background: #1e1e40; border: 2px solid #6ef0d0; border-radius: 14px; box-shadow: 5px 5px 0 #3dd8b8; }
+      .b .mock-figure { color: #6ef0d0; text-shadow: 0 0 18px rgba(110, 240, 208, .55); }
+      .b .mock-stat { background: #1e1e40; border: 2px solid #4a4a80; border-radius: 12px; box-shadow: 4px 4px 0 #2a2a55; }
+      .b .mock-stat:nth-child(1) { border-color: #6ef0d0; color: #6ef0d0; }
+      .b .mock-stat:nth-child(2) { border-color: #ff6fd8; color: #ff6fd8; }
+      .b .mock-stat:nth-child(3) { border-color: #ffe066; color: #ffe066; }
+      .b .mock-cal { background: #1e1e40; border: 2px solid #4a4a80; border-radius: 14px; box-shadow: 5px 5px 0 #2a2a55; }
+      .b .mock-cell { background: #26264c; }
+      .b .mock-cell.on { background: #6ef0d0; box-shadow: 0 0 12px rgba(110, 240, 208, .7); }
+      .b .mock-cell.bank { background: #ff6fd8; box-shadow: 0 0 12px rgba(255, 111, 216, .6); }
+      .b .mock-feed { background: #1e1e40; border: 2px solid #4a4a80; border-radius: 12px; box-shadow: 4px 4px 0 #2a2a55; }
+      .b .mock-avatar { background: #6ef0d0; border: 2px solid #14142a; }
+      .b .mock-bubble { background: #26264c; border: 2px solid #4a4a80; border-radius: 10px; }
+
+      /* ================= C 孟菲斯玩具 ================= */
+      .c { background: #fdf7e6; color: #23203a; }
+      .c .mock-hero { background: #fff; border: 3px solid #23203a; border-radius: 20px; box-shadow: 6px 6px 0 #ff5fa2; position: relative; }
+      .c .mock-hero::after { content: ''; position: absolute; right: 14px; top: 14px; width: 18px; height: 18px; border-radius: 50%; background: #6ee7f0; border: 3px solid #23203a; }
+      .c .mock-figure { color: #ff4f8b; }
+      .c .mock-stat { background: #fff; border: 3px solid #23203a; border-radius: 18px; box-shadow: 5px 5px 0 #23203a; }
+      .c .mock-stat:nth-child(1) { background: #ffd447; transform: rotate(-2deg); }
+      .c .mock-stat:nth-child(2) { background: #7fe3d4; transform: rotate(1.6deg); }
+      .c .mock-stat:nth-child(3) { background: #c6a8ff; transform: rotate(-1deg); }
+      .c .mock-cal { background: #fff; border: 3px solid #23203a; border-radius: 20px; box-shadow: 6px 6px 0 #6ee7f0; }
+      .c .mock-cell { background: #f0f0f6; border: 2px solid #23203a; }
+      .c .mock-cell.on { background: #ff4f8b; box-shadow: 2px 2px 0 #23203a; }
+      .c .mock-cell.bank { background: #ffd447; box-shadow: 2px 2px 0 #23203a; }
+      .c .mock-feed { background: #fff; border: 3px solid #23203a; border-radius: 18px; box-shadow: 5px 5px 0 #ff5fa2; }
+      .c .mock-avatar { background: #6ee7f0; border: 3px solid #23203a; }
+      .c .mock-bubble { background: #fdf7e6; border: 3px solid #23203a; border-radius: 14px; }
+
+      /* ================= D 毛毡手作 ================= */
+      .d { background: #f2e9dd; color: #3d3229; }
+      .d .mock-hero { background: #fbf6ec; border: 2px dashed #a8927c; border-radius: 20px; box-shadow: 0 12px 22px -16px rgba(61, 50, 41, .6); }
+      .d .mock-figure { color: #c8643c; font-family: 'ZCOOL KuaiLe', sans-serif; }
+      .d .mock-stat { background: #fbf6ec; border: 2px dashed #a8927c; border-radius: 18px; }
+      .d .mock-stat:nth-child(1) { background: #f7d9c4; }
+      .d .mock-stat:nth-child(2) { background: #d6e5cf; }
+      .d .mock-stat:nth-child(3) { background: #cdd9ea; }
+      .d .mock-cal { background: #fbf6ec; border: 2px dashed #a8927c; border-radius: 20px; }
+      .d .mock-cell { background: #e8ddcd; border-radius: 8px; }
+      .d .mock-cell.on { background: #c8643c; }
+      .d .mock-cell.bank { background: #d9a05b; }
+      .d .mock-feed { background: #fbf6ec; border: 2px dashed #a8927c; border-radius: 18px; }
+      .d .mock-avatar { background: #f7d9c4; border: 2px dashed #a8927c; }
+      .d .mock-bubble { background: #f2e9dd; border: 2px dashed #a8927c; border-radius: 14px; }
+
+      @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>Watermark · 主题方向对比</h1>
+      <p>
+        同一套内容（状态卡 / 三个统计块 / 日历格 / 公告气泡）渲染成四种风格。<br />
+        A 是原站的工艺（粗墨线 + 硬阴影 + 饱和平涂）但换成薄荷＋紫的配色；B 是霓虹夜光；C 是孟菲斯几何玩具；D 是毛毡手作。挑一个方向，我按它重做全站。
+      </p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <script>
+      const CELLS = (() => {
+        const out = [];
+        const pattern = [0,0,1,0,0,0,2,0,0,1,0,0,0,3,0,0,1,0,0,0,2,0,0,0,0,1,0,0];
+        for (const p of pattern) out.push(p);
+        return out;
+      })();
+
+      const THEMES = [
+        {
+          id: 'a',
+          name: 'A · 墨线糖果',
+          desc: '原站工艺 + 薄荷/紫罗兰配色',
+          brand: 'Watermark',
+          sub: '我们帮你盯着 @thsottiaux 发布的重置公告。',
+          figure: '13小时前',
+          time: '10月23日 17:00 PDT',
+          stats: [['重置次数','66'],['平均间隔','6.2天'],['最长等待','67.7天']],
+          feed: 'Codex 使用限额已重置。查看你的限额。',
+        },
+        {
+          id: 'b',
+          name: 'B · 夜光票根',
+          desc: '深靛底 + 霓虹描边',
+          brand: 'Watermark',
+          sub: '我们帮你盯着 @thsottiaux 发布的重置公告。',
+          figure: '13小时前',
+          time: '10月23日 17:00 PDT',
+          stats: [['重置次数','66'],['平均间隔','6.2天'],['最长等待','67.7天']],
+          feed: 'Codex 使用限额已重置。查看你的限额。',
+        },
+        {
+          id: 'c',
+          name: 'C · 孟菲斯玩具',
+          desc: '几何色块 + 3px 粗边',
+          brand: 'Watermark',
+          sub: '我们帮你盯着 @thsottiaux 发布的重置公告。',
+          figure: '13小时前',
+          time: '10月23日 17:00 PDT',
+          stats: [['重置次数','66'],['平均间隔','6.2天'],['最长等待','67.7天']],
+          feed: 'Codex 使用限额已重置。查看你的限额。',
+        },
+        {
+          id: 'd',
+          name: 'D · 毛毡手作',
+          desc: '缝线边 + 手作质感',
+          brand: 'Watermark',
+          sub: '我们帮你盯着 @thsottiaux 发布的重置公告。',
+          figure: '13小时前',
+          time: '10月23日 17:00 PDT',
+          stats: [['重置次数','66'],['平均间隔','6.2天'],['最长等待','67.7天']],
+          feed: 'Codex 使用限额已重置。查看你的限额。',
+        },
+      ];
+
+      const html = THEMES.map((t) => {
+        const cells = CELLS.map((p) => {
+          const cls = p === 1 ? 'on' : p === 2 ? 'bank' : p === 3 ? 'on' : '';
+          return `<div class="mock-cell ${cls}"></div>`;
+        }).join('');
+        const stats = t.stats.map(([k, v]) => `<div class="mock-stat"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+        return `
+        <section class="theme">
+          <div class="theme__label"><b>${t.name}</b><span>${t.desc}</span></div>
+          <div class="canvas ${t.id}">
+            <div class="mock-brand">${t.brand}</div>
+            <div class="mock-sub">${t.sub}</div>
+            <div class="mock-hero">
+              <div class="mock-label">最近一次重置</div>
+              <div class="mock-figure">${t.figure}</div>
+              <div class="mock-time">${t.time}</div>
+            </div>
+            <div class="mock-stats">${stats}</div>
+            <div class="mock-cal">
+              <div class="mock-cal__head">Codex 重置历史</div>
+              <div class="mock-cells">${cells}</div>
+            </div>
+            <div class="mock-feed">
+              <div class="mock-avatar"></div>
+              <div class="mock-bubble">
+                <p>${t.feed}</p>
+                <a href="#">在 X 查看 →</a>
+              </div>
+            </div>
+          </div>
+        </section>`;
+      }).join('');
+
+      document.getElementById('grid').innerHTML = html;
+    </script>
+  </body>
+</html>

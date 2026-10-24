@@ -1,0 +1,17 @@
+# Cloudflare Workers 静态资源部署配置
+# 文档：https://developers.cloudflare.com/workers/static-assets/
+#
+# 用法：
+#   npm run build && npx wrangler deploy
+#
+# 只想快速上线、不打算加 API 的话，更简单的是走 Pages：
+#   npm run build && npx wrangler pages deploy dist --project-name=quota-watermark
+
+name = "quota-watermark"
+compatibility_date = "2025-09-01"
+
+[assets]
+directory = "./dist"
+# /en 自动补成 /en/，保证相对路径（../assets/）解析正确
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"

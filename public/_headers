@@ -1,0 +1,32 @@
+# Cloudflare Pages / Workers 响应头规则
+# 文档：https://developers.cloudflare.com/pages/configuration/headers/
+
+# 静态资源带内容 hash，可以长期强缓存
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 数据快照：不能长缓存，否则系统通知轮询拿不到新的重置
+/data/resets.json
+  Cache-Control: no-cache, must-revalidate
+
+# Service Worker 绝不能长缓存，否则用户拿不到新版本
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 日历订阅
+/quota-watermark.ics
+  Content-Type: text/calendar; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+# RSS
+/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+# HTML 不缓存，保证内容更新即时生效
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 跨域开放，方便第三方工具直接取数据
+/data/*
+  Access-Control-Allow-Origin: *

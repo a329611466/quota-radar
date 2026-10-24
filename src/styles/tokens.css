@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Design tokens
+   四套可切换主题：ink（墨线糖果）/ neon（夜光票根）/ memphis（孟菲斯玩具）
+   / felt（毛毡手作，默认）。所有组件样式都靠这里的变量驱动。
+   ========================================================================== */
+
+:root {
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --cell-size: 22px;
+  --cell-gap: 4px;
+  --measure: 60ch;
+
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.14s;
+  --dur-base: 0.24s;
+
+  --shell-width: 1080px;
+}
+
+/* ==========================================================================
+   FELT · 毛毡手作（默认）
+   燕麦色纸、缝线虚线边、陶土与鼠尾草低饱和、柔和投影
+   ========================================================================== */
+:root,
+:root[data-theme='felt'] {
+  --figure-pad: 0;
+  --figure-radius: 0;
+  --hero-art: none;
+  --hero-art-size: auto;
+  --font-display: 'Quicksand', 'ZCOOL KuaiLe', 'Fredoka', system-ui, sans-serif;
+
+  --bg: #f2e9dd;
+  --bg-art: radial-gradient(30rem circle at 10% 4%, rgba(200, 100, 60, 0.1), transparent 60%),
+    radial-gradient(26rem circle at 92% 12%, rgba(120, 150, 120, 0.12), transparent 60%),
+    radial-gradient(34rem circle at 70% 96%, rgba(120, 140, 190, 0.12), transparent 60%);
+
+  --surface: #fbf6ec;
+  --surface-2: #f5eddf;
+  --well: #e9dfcd;
+
+  --ink: #3d3229;
+  --ink-2: #6b5c4e;
+  --ink-3: #6d5f52;
+
+  --accent: #c8643c;
+  --on-accent: #2a1005;
+  --ok: #6d9c7a;
+  --warn: #c08a3e;
+
+  --bw: 2px;
+  --bc: #b3a08c;
+  --bs: dashed;
+
+  --shadow-card: 0 14px 26px -18px rgba(61, 50, 41, 0.55);
+  --shadow-sm: 0 6px 12px -10px rgba(61, 50, 41, 0.5);
+  --shadow-raised: 0 18px 30px -18px rgba(61, 50, 41, 0.6);
+  --shadow-edge: 0 3px 0 rgba(61, 50, 41, 0.1);
+
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 11px;
+  --r-pill: 999px;
+
+  --figure-bg: transparent;
+  --figure-fg: var(--accent);
+  --figure-border: none;
+
+  --stat-1: #f7ddc8;
+  --stat-2: #d9e6d1;
+  --stat-3: #d5dfef;
+
+  --cell-empty: #e5dac8;
+  --cell-on-bg: #c8643c;
+  --cell-on-fg: #fbf6ec;
+  --cell-on-border: none;
+  --cell-bank-bg: #d3a05e;
+  --cell-bank-fg: #fbf6ec;
+  --cell-radius: 9px;
+
+  --btn-bg: #fbf6ec;
+  --btn-fg: var(--ink);
+  --btn-border: 2px dashed #b3a08c;
+  --btn-edge: rgba(61, 50, 41, 0.12);
+
+  --chip-bg: #e5d8c4;
+  --chip-fg: #6d5a49;
+  --tag-regular-bg: #d9e6d1;
+  --tag-regular-fg: #3f6b4c;
+  --tag-banked-bg: #f2e0bf;
+  --tag-banked-fg: #8a5c12;
+
+  --glow: none;
+}
+
+/* ==========================================================================
+   INK · 墨线糖果
+   奶油纸、2px 纯墨线、零模糊硬阴影、薄荷与紫罗兰配色
+   ========================================================================== */
+:root[data-theme='ink'] {
+  --figure-pad: 0 16px 4px;
+  --figure-radius: 10px;
+  --hero-art: radial-gradient(rgba(42, 32, 24, 0.09) 1.5px, transparent 1.5px);
+  --hero-art-size: 18px 18px;
+  --font-display: 'Baloo 2', 'ZCOOL KuaiLe', 'Fredoka', system-ui, sans-serif;
+
+  --bg: #fff6e4;
+  --bg-art: radial-gradient(26rem circle at 8% 2%, rgba(47, 158, 106, 0.1), transparent 60%),
+    radial-gradient(24rem circle at 94% 10%, rgba(201, 182, 247, 0.16), transparent 60%);
+
+  --surface: #fffdf6;
+  --surface-2: #fff6e4;
+  --well: #f2e4c8;
+
+  --ink: #2a2018;
+  --ink-2: #5c5347;
+  --ink-3: #6f6558;
+
+  --accent: #2f9e6a;
+  --on-accent: #08200f;
+  --ok: #2f9e6a;
+  --warn: #d9913a;
+
+  --bw: 2px;
+  --bc: #2a2018;
+  --bs: solid;
+
+  --shadow-card: 5px 5px 0 #2a2018;
+  --shadow-sm: 3px 3px 0 #2a2018;
+  --shadow-raised: 7px 7px 0 #2a2018;
+  --shadow-edge: none;
+
+  --r-lg: 16px;
+  --r-md: 12px;
+  --r-sm: 8px;
+  --r-pill: 999px;
+
+  --figure-bg: #ffd84d;
+  --figure-fg: #2a2018;
+  --figure-border: 2px solid #2a2018;
+
+  --stat-1: #b9e6a6;
+  --stat-2: #c9b6f7;
+  --stat-3: #ffcf8f;
+
+  --cell-empty: #f2e4c8;
+  --cell-on-bg: #2f9e6a;
+  --cell-on-fg: #fffdf6;
+  --cell-on-border: 1.5px solid #2a2018;
+  --cell-bank-bg: #ffc96b;
+  --cell-bank-fg: #2a2018;
+  --cell-radius: 6px;
+
+  --btn-bg: #fffdf6;
+  --btn-fg: #2a2018;
+  --btn-border: 2px solid #2a2018;
+  --btn-edge: #2a2018;
+
+  --chip-bg: #f2e4c8;
+  --chip-fg: #2a2018;
+  --tag-regular-bg: #b9e6a6;
+  --tag-regular-fg: #2a2018;
+  --tag-banked-bg: #ffc96b;
+  --tag-banked-fg: #2a2018;
+
+  --glow: none;
+}
+
+/* ==========================================================================
+   MEMPHIS · 孟菲斯玩具
+   白卡、3px 藏蓝粗边、撞色阴影、几何圆形装饰
+   ========================================================================== */
+:root[data-theme='memphis'] {
+  --figure-pad: 0;
+  --figure-radius: 0;
+  --hero-art: none;
+  --hero-art-size: auto;
+  --font-display: 'Fredoka', 'ZCOOL KuaiLe', system-ui, sans-serif;
+
+  --bg: #fdf7e6;
+  --bg-art: radial-gradient(22rem circle at 6% 6%, rgba(110, 231, 240, 0.35), transparent 60%),
+    radial-gradient(20rem circle at 96% 16%, rgba(255, 79, 139, 0.28), transparent 60%),
+    radial-gradient(24rem circle at 76% 94%, rgba(198, 168, 255, 0.3), transparent 60%);
+
+  --surface: #ffffff;
+  --surface-2: #fdf7e6;
+  --well: #f2f2f8;
+
+  --ink: #23203a;
+  --ink-2: #55516e;
+  --ink-3: #5f5b76;
+
+  --accent: #ff4f8b;
+  --on-accent: #2a0a1a;
+  --ok: #00b39a;
+  --warn: #e8a200;
+
+  --bw: 3px;
+  --bc: #23203a;
+  --bs: solid;
+
+  --shadow-card: 6px 6px 0 #ff5fa2;
+  --shadow-sm: 4px 4px 0 #23203a;
+  --shadow-raised: 8px 8px 0 #6ee7f0;
+  --shadow-edge: none;
+
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 11px;
+  --r-pill: 999px;
+
+  --figure-bg: transparent;
+  --figure-fg: #ff4f8b;
+  --figure-border: none;
+
+  --stat-1: #ffd447;
+  --stat-2: #7fe3d4;
+  --stat-3: #c6a8ff;
+
+  --cell-empty: #f0f0f6;
+  --cell-on-bg: #ff4f8b;
+  --cell-on-fg: #ffffff;
+  --cell-on-border: 2px solid #23203a;
+  --cell-bank-bg: #ffd447;
+  --cell-bank-fg: #23203a;
+  --cell-radius: 6px;
+
+  --btn-bg: #ffffff;
+  --btn-fg: #23203a;
+  --btn-border: 3px solid #23203a;
+  --btn-edge: #23203a;
+
+  --chip-bg: #6ee7f0;
+  --chip-fg: #23203a;
+  --tag-regular-bg: #ffd447;
+  --tag-regular-fg: #23203a;
+  --tag-banked-bg: #7fe3d4;
+  --tag-banked-fg: #23203a;
+
+  --glow: none;
+}
+
+/* ==========================================================================
+   NEON · 夜光票根
+   深靛底、霓虹描边与发光、荧光青/品红/柠檬黄
+   ========================================================================== */
+:root[data-theme='neon'] {
+  --figure-pad: 0;
+  --figure-radius: 0;
+  --hero-art: repeating-linear-gradient(rgba(110, 240, 208, 0.05) 0 1px, transparent 1px 22px);
+  --hero-art-size: auto;
+  --font-display: 'Chakra Petch', 'ZCOOL KuaiLe', system-ui, sans-serif;
+
+  --bg: #14142a;
+  --bg-art: radial-gradient(30rem circle at 10% 4%, rgba(110, 240, 208, 0.16), transparent 62%),
+    radial-gradient(26rem circle at 92% 14%, rgba(255, 111, 216, 0.16), transparent 62%),
+    radial-gradient(34rem circle at 68% 96%, rgba(110, 140, 255, 0.18), transparent 62%);
+
+  --surface: #1e1e40;
+  --surface-2: #26264c;
+  --well: #191936;
+
+  --ink: #eef0ff;
+  --ink-2: #a9a9d6;
+  --ink-3: #8f8fc0;
+
+  --accent: #6ef0d0;
+  --on-accent: #10201a;
+  --ok: #6ef0d0;
+  --warn: #ffe066;
+
+  --bw: 2px;
+  --bc: #4a4a80;
+  --bs: solid;
+
+  --shadow-card: 0 0 26px -6px rgba(110, 240, 208, 0.35), 5px 5px 0 #2a2a55;
+  --shadow-sm: 0 0 18px -6px rgba(110, 240, 208, 0.3);
+  --shadow-raised: 0 0 34px -6px rgba(110, 240, 208, 0.5);
+  --shadow-edge: none;
+
+  --r-lg: 16px;
+  --r-md: 12px;
+  --r-sm: 9px;
+  --r-pill: 999px;
+
+  --figure-bg: transparent;
+  --figure-fg: #6ef0d0;
+  --figure-border: none;
+
+  --stat-1: #1e1e40;
+  --stat-2: #1e1e40;
+  --stat-3: #1e1e40;
+
+  --cell-empty: #26264c;
+  --cell-on-bg: #6ef0d0;
+  --cell-on-fg: #10201a;
+  --cell-on-border: none;
+  --cell-bank-bg: #ff6fd8;
+  --cell-bank-fg: #2a0a22;
+  --cell-radius: 6px;
+
+  --btn-bg: #26264c;
+  --btn-fg: #eef0ff;
+  --btn-border: 2px solid #4a4a80;
+  --btn-edge: none;
+
+  --chip-bg: #26264c;
+  --chip-fg: #6ef0d0;
+  --tag-regular-bg: rgba(110, 240, 208, 0.16);
+  --tag-regular-fg: #6ef0d0;
+  --tag-banked-bg: rgba(255, 111, 216, 0.16);
+  --tag-banked-fg: #ff6fd8;
+
+  --glow: 0 0 14px -2px rgba(110, 240, 208, 0.55);
+}
