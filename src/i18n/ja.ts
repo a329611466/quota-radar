@@ -101,6 +101,7 @@ export const ja: Dict = {
   'tibo.role': 'Codex & ChatGPT @OpenAI',
   'tibo.followers': '93.6 万人フォロワー',
   'tibo.desc': 'このサイトは Tibo が X に投稿する Codex 使用量リセットの発表を追跡しています。ページ上のすべての数値はこれらの公開投稿から導かれています。',
+  'tibo.avatarNote': 'アイコンは公開されている X のプロフィール画像を基に漫画風イラストとして制作。',
   'tibo.viewProfile': 'X で見る',
   'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': '{account} の投稿をデータ化し、かなり真面目なボットが分類しました。',
