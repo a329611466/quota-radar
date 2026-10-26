@@ -239,6 +239,7 @@ export default function App({ locale }: { locale: Locale }) {
                 followers: t('tibo.followers'),
                 desc: t('tibo.desc'),
                 viewProfile: t('tibo.viewProfile'),
+                avatarNote: t('tibo.avatarNote'),
               }}
             />
           </Section>
