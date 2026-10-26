@@ -15,9 +15,9 @@
 /icon-512.png
   Cache-Control: public, max-age=86400
 
-# 图片资源
+# 图片资源：体积小，改图后必须立刻生效，所以只缓存不锁死
 /img/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=0, must-revalidate
 
 # 数据快照：不能长缓存，否则系统通知轮询拿不到新的重置
 /data/resets.json

@@ -17,7 +17,7 @@ export function AboutTibo({ labels }: AboutTiboProps) {
     <section className="tibo">
       <img
         className="tibo__avatar"
-        src={assetUrl('img/tibo-avatar.jpg')}
+        src={assetUrl('img/tibo-avatar-v2.jpg')}
         alt=""
         width={88}
         height={88}

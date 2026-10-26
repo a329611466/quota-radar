@@ -68,7 +68,7 @@ export function Header({
         >
           <img
             className="tibo-chip__avatar"
-            src={assetUrl('img/tibo-avatar.jpg')}
+            src={assetUrl('img/tibo-avatar-v2.jpg')}
             alt=""
             width={32}
             height={32}

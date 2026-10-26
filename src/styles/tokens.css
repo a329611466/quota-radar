@@ -82,15 +82,15 @@
   --cell-empty: #e5dac8;
   --cell-on-bg: #c8643c;
   --cell-on-fg: #fbf6ec;
-  --cell-on-border: none;
+  --cell-on-border: transparent;
+  --cell-border-w: 0;
   --cell-bank-bg: #d3a05e;
   --cell-bank-fg: #fbf6ec;
   --cell-radius: 9px;
 
   --btn-bg: #fbf6ec;
   --btn-fg: var(--ink);
-  --btn-border: 2px dashed #b3a08c;
-  --btn-edge: rgba(61, 50, 41, 0.12);
+  --btn-border: #b3a08c;
 
   --chip-bg: #e5d8c4;
   --chip-fg: #6d5a49;
@@ -155,15 +155,15 @@
   --cell-empty: #f2e4c8;
   --cell-on-bg: #2f9e6a;
   --cell-on-fg: #fffdf6;
-  --cell-on-border: 1.5px solid #2a2018;
+  --cell-on-border: #2a2018;
+  --cell-border-w: 1.5px;
   --cell-bank-bg: #ffc96b;
   --cell-bank-fg: #2a2018;
   --cell-radius: 6px;
 
   --btn-bg: #fffdf6;
   --btn-fg: #2a2018;
-  --btn-border: 2px solid #2a2018;
-  --btn-edge: #2a2018;
+  --btn-border: #2a2018;
 
   --chip-bg: #f2e4c8;
   --chip-fg: #2a2018;
@@ -229,15 +229,15 @@
   --cell-empty: #f0f0f6;
   --cell-on-bg: #ff4f8b;
   --cell-on-fg: #ffffff;
-  --cell-on-border: 2px solid #23203a;
+  --cell-on-border: #23203a;
+  --cell-border-w: 2px;
   --cell-bank-bg: #ffd447;
   --cell-bank-fg: #23203a;
   --cell-radius: 6px;
 
   --btn-bg: #ffffff;
   --btn-fg: #23203a;
-  --btn-border: 3px solid #23203a;
-  --btn-edge: #23203a;
+  --btn-border: #23203a;
 
   --chip-bg: #6ee7f0;
   --chip-fg: #23203a;
@@ -303,15 +303,15 @@
   --cell-empty: #26264c;
   --cell-on-bg: #6ef0d0;
   --cell-on-fg: #10201a;
-  --cell-on-border: none;
+  --cell-on-border: transparent;
+  --cell-border-w: 0;
   --cell-bank-bg: #ff6fd8;
   --cell-bank-fg: #2a0a22;
   --cell-radius: 6px;
 
   --btn-bg: #26264c;
   --btn-fg: #eef0ff;
-  --btn-border: 2px solid #4a4a80;
-  --btn-edge: none;
+  --btn-border: #4a4a80;
 
   --chip-bg: #26264c;
   --chip-fg: #6ef0d0;

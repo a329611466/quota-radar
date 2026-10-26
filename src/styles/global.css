@@ -534,6 +534,12 @@ button {
   color: var(--accent);
 }
 
+/* 选中态的底色本身就是 accent，悬停时不能再把文字改成 accent，否则文字与底色同色直接消失 */
+.btn[aria-pressed='true']:hover:not(:disabled) {
+  color: var(--on-accent);
+  box-shadow: var(--shadow-sm), var(--shadow-raised);
+}
+
 .btn:active:not(:disabled) {
   transform: translateY(3px);
   box-shadow: var(--shadow-edge);
@@ -1095,14 +1101,14 @@ button {
 
 .cg-cell--regular {
   background: var(--cell-on-bg);
-  border: var(--cell-on-border);
+  border: var(--cell-border-w) solid var(--cell-on-border);
   color: var(--cell-on-fg);
   font-weight: 700;
 }
 
 .cg-cell--banked {
   background: var(--cell-bank-bg);
-  border: 1.5px solid var(--cell-on-border, transparent);
+  border: var(--cell-border-w) solid var(--cell-on-border);
   color: var(--cell-bank-fg);
   font-weight: 700;
 }

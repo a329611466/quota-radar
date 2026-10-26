@@ -35,7 +35,7 @@ export function AnnouncementFeed({ events, locale, timeMode, labels }: Announcem
             <div className="ledger__meta">
               <img
                 className="tibo-avatar"
-                src={assetUrl('img/tibo-avatar.jpg')}
+                src={assetUrl('img/tibo-avatar-v2.jpg')}
                 alt=""
                 width={36}
                 height={36}
