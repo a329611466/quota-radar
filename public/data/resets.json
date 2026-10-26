@@ -1,11 +1,19 @@
 {
   "version": 1,
-  "generated_at": "2026-10-24T03:10:43.394Z",
+  "generated_at": "2026-10-26T03:24:40.393Z",
   "source": {
     "provider": "https://codex-resets.com/api/resets",
     "account": "@thsottiaux"
   },
   "events": [
+    {
+      "id": "2114237083652882932",
+      "url": "https://x.com/thsottiaux/status/2114237083652882932",
+      "announced_at": "2026-10-25T06:06:16.000Z",
+      "reset_type": "regular",
+      "text": "It is all propagated. Enjoy some mad codexing tomorrow. Fun week ahead too. https://t.co/qOrzwSeIZZ https://t.co/xKaK95EAly",
+      "source": "webhook"
+    },
     {
       "id": "observed-2113492502355562875",
       "url": "https://x.com/thsottiaux/status/2113492502355562875",
