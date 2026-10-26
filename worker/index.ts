@@ -166,8 +166,11 @@ export default {
     }
 
     if (url.pathname === '/quota-radar.ics') {
-      const events = snapshot?.events ?? [];
-      return new Response(buildIcs(events), {
+      if (!snapshot) {
+        // KV 还没数据，回退到构建期静态订阅源
+        return env.ASSETS.fetch(request);
+      }
+      return new Response(buildIcs(snapshot.events), {
         headers: {
           'content-type': 'text/calendar; charset=utf-8',
           'cache-control': 'public, max-age=900',
@@ -176,8 +179,10 @@ export default {
     }
 
     if (url.pathname === '/feed.xml') {
-      const events = snapshot?.events ?? [];
-      return new Response(buildRss(events, url.origin), {
+      if (!snapshot) {
+        return env.ASSETS.fetch(request);
+      }
+      return new Response(buildRss(snapshot.events, url.origin), {
         headers: {
           'content-type': 'application/rss+xml; charset=utf-8',
           'cache-control': 'public, max-age=900',

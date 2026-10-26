@@ -21,6 +21,10 @@ binding = "ASSETS"
 # /en 自动补成 /en/，保证相对路径（../assets/）解析正确
 html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
+# 默认静态资源优先：命中 .ics / feed.xml 就直接返回构建期旧文件，
+# Worker 里的动态生成逻辑不会执行。开启这个让 Worker 优先，
+# .ics / feed.xml 才会用 KV 里的最新数据动态生成。
+run_worker_first = true
 
 # 数据快照存 KV，Worker 定时从上游拉取后写入
 [[kv_namespaces]]
