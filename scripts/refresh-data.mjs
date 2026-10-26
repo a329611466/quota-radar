@@ -11,13 +11,12 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { normalizeUpstream } from '../src/lib/normalize.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const TARGET = resolve(ROOT, 'public/data/resets.json');
 const DEFAULT_SOURCE = 'https://codex-resets.com/api/resets';
-
-const VALID_SOURCES = new Set(['observed', 'webhook', 'backfill']);
 
 function parseArgs(argv) {
   const opts = { source: DEFAULT_SOURCE };
@@ -28,36 +27,6 @@ function parseArgs(argv) {
     }
   }
   return opts;
-}
-
-function normalize(payload) {
-  const list = Array.isArray(payload) ? payload : payload?.events;
-  if (!Array.isArray(list)) {
-    throw new Error('上游返回的数据结构无法识别');
-  }
-
-  const byId = new Map();
-  for (const raw of list) {
-    const id = String(raw.tweet_id ?? raw.id ?? '').trim();
-    const announcedAt = raw.announced_at;
-    if (!id || !announcedAt) continue;
-
-    const time = Date.parse(announcedAt);
-    if (Number.isNaN(time)) continue;
-
-    if (!byId.has(id)) {
-      byId.set(id, {
-        id,
-        url: String(raw.tweet_url ?? raw.url ?? ''),
-        announced_at: new Date(time).toISOString(),
-        reset_type: raw.reset_type === 'banked' ? 'banked' : 'regular',
-        text: String(raw.text ?? ''),
-        source: VALID_SOURCES.has(raw.source) ? raw.source : 'backfill',
-      });
-    }
-  }
-
-  return [...byId.values()].sort((a, b) => Date.parse(b.announced_at) - Date.parse(a.announced_at));
 }
 
 function diff(oldEvents, newEvents) {
@@ -95,7 +64,10 @@ async function main() {
   }
 
   const payload = await response.json();
-  const events = normalize(payload);
+  if (!Array.isArray(payload) && !Array.isArray(payload?.events)) {
+    throw new Error('上游返回的数据结构无法识别');
+  }
+  const events = normalizeUpstream(payload);
   if (events.length === 0) {
     throw new Error('上游返回 0 条事件，拒绝写入');
   }
