@@ -99,6 +99,7 @@ export const en = {
   'tibo.role': 'Codex & ChatGPT @OpenAI',
   'tibo.followers': '936K followers',
   'tibo.desc': 'This tracker follows the Codex usage-limit reset announcements Tibo posts on X. Every number on this page is derived from those public posts.',
+  'tibo.avatarNote': 'Portrait adapted from his public X avatar as a comic-style illustration.',
   'tibo.viewProfile': 'View on X',
   'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': "Data from {account}'s posts, classified by a rather serious bot.",
