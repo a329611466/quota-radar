@@ -99,7 +99,6 @@ export const zhTW: Dict = {
   'tibo.role': 'Codex & ChatGPT @OpenAI',
   'tibo.followers': '93.6 萬追蹤者',
   'tibo.desc': '本站追蹤 Tibo 在 X 上發布的 Codex 額度重置公告，頁面上的每一個數字都來自這些公開貼文。',
-  'tibo.avatarNote': '頭像依據其 X 公開頭像繪製的漫畫風格插畫。',
   'tibo.viewProfile': '查看 X 主页',
   'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': '資料來自 {account} 的貼文，由一個很認真的機器人分類。',

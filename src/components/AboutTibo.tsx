@@ -8,7 +8,6 @@ export interface AboutTiboProps {
     followers: string;
     desc: string;
     viewProfile: string;
-    avatarNote: string;
   };
 }
 
@@ -37,7 +36,6 @@ export function AboutTibo({ labels }: AboutTiboProps) {
           >
             {labels.viewProfile} →
           </a>
-          <p className="tibo__note">{labels.avatarNote}</p>
         </div>
       </div>
       <p className="tibo__followers">{labels.followers}</p>

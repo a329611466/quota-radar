@@ -476,15 +476,6 @@ button {
   flex-wrap: wrap;
 }
 
-.tibo__note {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  line-height: 1.5;
-  color: var(--ink-3);
-  max-width: 34ch;
-}
-
 .tibo__followers {
   position: absolute;
   top: var(--space-4);
