@@ -1,5 +1,7 @@
 # Watermark · 额度水位
 
+> 线上：<https://quota-watermark.wuyanjie00.workers.dev>
+
 独立追踪 OpenAI Codex 使用额度重置（usage limit reset）的工具站。
 
 视觉提供**四套可切换主题**，默认「毛毡手作」。所有样式由 CSS 变量驱动，换主题不改一行组件代码。预览见 [`docs/theme-preview.html`](docs/theme-preview.html)。
