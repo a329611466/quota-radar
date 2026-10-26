@@ -52,7 +52,7 @@ export default function App({ locale }: { locale: Locale }) {
     [dict],
   );
 
-  const { status, events, stats, error, lastCheckedAt, generatedAt, refresh } = useResets();
+  const { status, events, stats, error, lastCheckedAt, generatedAt, source, refresh } = useResets();
   const { theme, setTheme } = useTheme();
   const { lines, push } = useLog();
 
@@ -89,8 +89,10 @@ export default function App({ locale }: { locale: Locale }) {
     booted.current = true;
     const stamp = generatedAt ?? '—';
     if (lines.some((line) => line.text.startsWith('booted ::') && line.text.includes(stamp))) return;
-    push('info', `booted :: ${stats.total} events · snapshot ${stamp}`);
-  }, [status, stats.total, generatedAt, lines, push]);
+    // source 标明数据来自动态接口（自动更新）还是构建期静态快照
+    const via = source === 'api' ? 'via API' : 'static snapshot';
+    push('info', `booted :: ${stats.total} events · ${via} · ${stamp}`);
+  }, [status, stats.total, generatedAt, source, lines, push]);
 
   useEffect(() => {
     if (status === 'error' && error) {
