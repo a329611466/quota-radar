@@ -15,6 +15,10 @@
 /icon-512.png
   Cache-Control: public, max-age=86400
 
+# 图片资源
+/img/*
+  Cache-Control: public, max-age=86400
+
 # 数据快照：不能长缓存，否则系统通知轮询拿不到新的重置
 /data/resets.json
   Cache-Control: no-cache, must-revalidate

@@ -96,6 +96,13 @@ export const ko: Dict = {
   'palette.empty': '일치하는 초기화가 없습니다',
   'palette.hint': '↑ ↓ 선택 · Enter 원문 열기 · Esc 닫기',
   'header.search': '초기화 이력 검색',
+  'tibo.title': 'Tibo 소개',
+  'tibo.name': 'Tibo',
+  'tibo.role': 'Codex & ChatGPT @OpenAI',
+  'tibo.followers': '93.6만 팔로워',
+  'tibo.desc': '이 사이트는 Tibo가 X에 게시하는 Codex 사용량 초기화 발표를 추적합니다. 페이지의 모든 숫자는 이러한 공개 게시물에서 파생됩니다.',
+  'tibo.viewProfile': 'X에서 보기',
+  'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': '{account}의 게시물을 데이터로 옮기고, 꽤 성실한 봇이 분류했습니다.',
   'footer.disclaimer':
     '독립 프로젝트입니다. OpenAI와 관련 없습니다. 「Codex」는 OpenAI의 상표입니다.',

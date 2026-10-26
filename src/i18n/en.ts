@@ -94,6 +94,13 @@ export const en = {
   'palette.empty': 'No matching reset',
   'palette.hint': '↑ ↓ to navigate · Enter to open source · Esc to close',
   'header.search': 'Search resets',
+  'tibo.title': 'About Tibo',
+  'tibo.name': 'Tibo',
+  'tibo.role': 'Codex & ChatGPT @OpenAI',
+  'tibo.followers': '936K followers',
+  'tibo.desc': 'This tracker follows the Codex usage-limit reset announcements Tibo posts on X. Every number on this page is derived from those public posts.',
+  'tibo.viewProfile': 'View on X',
+  'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': "Data from {account}'s posts, classified by a rather serious bot.",
   'footer.disclaimer':
     'Independent project. Not affiliated with OpenAI. “Codex” is a trademark of OpenAI.',

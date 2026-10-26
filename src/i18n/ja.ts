@@ -96,6 +96,13 @@ export const ja: Dict = {
   'palette.empty': '該当するリセットはありません',
   'palette.hint': '↑ ↓ で選択 · Enter で原文を開く · Esc で閉じる',
   'header.search': 'リセット履歴を検索',
+  'tibo.title': 'Tibo について',
+  'tibo.name': 'Tibo',
+  'tibo.role': 'Codex & ChatGPT @OpenAI',
+  'tibo.followers': '93.6 万人フォロワー',
+  'tibo.desc': 'このサイトは Tibo が X に投稿する Codex 使用量リセットの発表を追跡しています。ページ上のすべての数値はこれらの公開投稿から導かれています。',
+  'tibo.viewProfile': 'X で見る',
+  'tibo.chipRole': 'Codex @OpenAI',
   'footer.data': '{account} の投稿をデータ化し、かなり真面目なボットが分類しました。',
   'footer.disclaimer':
     '独立したプロジェクトです。OpenAI とは関係ありません。「Codex」は OpenAI の商標です。',

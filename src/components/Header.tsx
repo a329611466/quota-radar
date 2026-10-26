@@ -4,6 +4,7 @@ import type { Locale } from '../i18n/locales';
 import { formatUtcClock } from '../lib/time';
 import { LangSwitcher } from './LangSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
+import { assetUrl } from '../lib/base';
 
 export interface HeaderProps {
   status: LoadStatus;
@@ -26,6 +27,8 @@ export interface HeaderProps {
     themeNames: Record<Theme, string>;
     x: string;
     search: string;
+    tiboName: string;
+    tiboRole: string;
   };
 }
 
@@ -55,6 +58,28 @@ export function Header({
           <span className="brand__name">Quota Radar</span>
           <span className="brand__tag">{labels.tag}</span>
         </div>
+
+        <a
+          className="tibo-chip"
+          href="https://x.com/thsottiaux"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={labels.tiboRole}
+        >
+          <img
+            className="tibo-chip__avatar"
+            src={assetUrl('img/tibo-avatar.jpg')}
+            alt=""
+            width={32}
+            height={32}
+            loading="lazy"
+            referrerPolicy="no-referrer"
+          />
+          <span className="tibo-chip__meta">
+            <span className="tibo-chip__name">{labels.tiboName}</span>
+            <span className="tibo-chip__role">{labels.tiboRole}</span>
+          </span>
+        </a>
 
         <div className="masthead-presence" aria-live="polite">
           <span className={dotClass} aria-hidden="true" />

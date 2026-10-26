@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnnouncementFeed } from './components/AnnouncementFeed';
+import { AboutTibo } from './components/AboutTibo';
 import { CommandPalette } from './components/CommandPalette';
 import { ForecastCard } from './components/ForecastCard';
 import { Header } from './components/Header';
@@ -175,6 +176,8 @@ export default function App({ locale }: { locale: Locale }) {
           },
           x: t('header.x'),
           search: t('header.search'),
+          tiboName: t('tibo.name'),
+          tiboRole: t('tibo.chipRole'),
         }}
       />
 
@@ -226,6 +229,19 @@ export default function App({ locale }: { locale: Locale }) {
               days: t('stats.days'),
             }}
           />
+
+          <Section title={t('tibo.title')}>
+            <AboutTibo
+              labels={{
+                title: t('tibo.title'),
+                name: t('tibo.name'),
+                role: t('tibo.role'),
+                followers: t('tibo.followers'),
+                desc: t('tibo.desc'),
+                viewProfile: t('tibo.viewProfile'),
+              }}
+            />
+          </Section>
 
           <Section title={t('forecast.title')} sub={t('forecast.sub')}>
             <ForecastCard

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ResetEvent, TimeMode } from '../data/types';
 import { formatAbsolute, formatRelative } from '../lib/time';
+import { assetUrl } from '../lib/base';
 
 export interface AnnouncementFeedProps {
   events: ResetEvent[];
@@ -32,6 +33,15 @@ export function AnnouncementFeed({ events, locale, timeMode, labels }: Announcem
         {visible.map((event) => (
           <li className="ledger__row" key={event.id}>
             <div className="ledger__meta">
+              <img
+                className="tibo-avatar"
+                src={assetUrl('img/tibo-avatar.jpg')}
+                alt=""
+                width={36}
+                height={36}
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
               <span className="ledger__time">{formatRelative(event.announced_at, locale)}</span>
               <span className="ledger__abs">
                 {formatAbsolute(event.announced_at, locale, timeMode)}
