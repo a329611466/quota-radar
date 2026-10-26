@@ -9,6 +9,8 @@
 
 name = "quota-watermark"
 compatibility_date = "2025-09-01"
+# Cloudflare 账号 ID（Workers & Pages → Overview → Account ID）
+account_id = "94c6721f6e9f94af1d9389a2199d98d0"
 
 [assets]
 directory = "./dist"
