@@ -78,11 +78,38 @@ jobs:
 > 注意：用 `gh` 命令行推送时，token 需要额外的 `workflow` 权限才能创建工作流文件。
 > 先执行 `gh auth refresh -s workflow` 授权一次即可；或者直接在 GitHub 网页上新建该文件。
 
+### 数据自动更新
+
+站点数据不再依赖手动刷新。部署包含一个 Cloudflare Worker：
+
+```
+用户 ──→ Worker ──┬── /api/resets   ← 从 KV 读（每 15 分钟由 Cron 更新）
+                   ├── /api/status   ← 最新一次重置 + 统计
+                   ├── *.ics / feed.xml ← 动态生成的订阅源
+                   └── 其余路径       → 静态资源（ASSETS 绑定）
+```
+
+- **Cron Trigger**：`*/15 * * * *`（每 15 分钟）。Worker 从上游拉取数据、归一化后写入 **Workers KV**
+- **KV 命名空间**：`RESETS`，快照保留 30 天；上游异常时保留上一份数据，不会清空
+- **静态快照兜底**：`public/data/resets.json` 是构建期快照。KV 读失败时 `/api/resets` 自动回退到它，站点照常可用
+
+免费额度足够：Cron 每天 96 次执行、KV 每天 1 次写、10 万次读，都在 Workers Free 限额内。
+
+想改成别的频率改 `wrangler.toml` 的 `crons` 即可（免费版每个 Worker 最多 3 个、最小间隔 1 分钟）。
+
+### 手动刷新数据（不走 Worker 时）
+
+```bash
+npm run refresh-data     # 重新抓取并覆盖 public/data/resets.json
+npm run deploy:workers  # 重新构建部署
+```
+
 ### 部署配置文件
 
 | 文件 | 作用 |
 | --- | --- |
-| `wrangler.toml` | Workers 静态资源配置（目录、404 处理、尾斜杠策略） |
+| `wrangler.toml` | Worker 入口、静态资源绑定、KV 命名空间、Cron 触发器 |
+| `worker/index.ts` | Worker 逻辑：定时抓取数据写入 KV，动态提供 `/api/*` 与订阅源 |
 | `public/_headers` | 响应头规则：带 hash 的 assets 长缓存；`data/resets.json` 与 `sw.js` 不缓存；`.ics` / RSS 的 MIME 与缓存；数据接口开 CORS |
 | `public/_redirects` | 重定向规则。**将来绑定自有域名时在这里加 301，务必保留旧地址** |
 | `public/404.html` | 404 页，`not_found_handling = "404-page"` 需要它 |
@@ -172,7 +199,7 @@ src/
 
 ## 数据更新
 
-数据快照在 `public/data/resets.json`，是运行时唯一的数据来源。
+数据由 Worker 定时自动更新（见上方「数据自动更新」）。手动刷新用：
 
 ```bash
 npm run refresh-data
@@ -182,12 +209,15 @@ node scripts/refresh-data.mjs --source <url>
 
 脚本会拉取上游接口、归一化字段、按 id 去重、按时间倒序写回，并打印新增/变更/删除摘要。两道保护：上游事件数比现有文件少 20% 以上时**拒绝写入**；上游返回 0 条时直接报错退出。
 
+归一化逻辑只有一份：`src/lib/normalize.ts`，被 Worker、刷新脚本、构建脚本三处共用，不会出现口径分歧。
+
 ## 已知限制
 
-- **数据来源依赖上游公开接口。** 当前快照取自 `codex-resets.com/api/resets`，上游条款要求使用时标注来源，页脚已保留署名。要完全独立需接入 X 官方 API 并自建抓取任务。
+- **数据来源依赖上游公开接口。** Worker 每 15 分钟从 `codex-resets.com/api/resets` 拉取一次，上游条款要求使用时标注来源，页脚已保留署名。要完全独立需接入 X 官方 API 并自建抓取任务。
 - **系统通知需要用户授权且页面处于打开状态。** 基于本地轮询，没有服务端推送；浏览器权限被拒时开关会禁用。
 - **「在线人数」「点赞数」不做伪造。** 纯静态站点没有后端共享计数，因此用真实的本地状态代替：轮询次数、已感谢记录、运行日志。
 - **预测是统计推断。** 样本只有 65 个间隔，长尾区间（67.7 天那种空窗）的概率估计很不稳；节奏若再次变化，模型需要重新校准。
+- **数据更新有最多 15 分钟延迟。** Cron 是定时拉取，不是推送。上游一有公告，站点最多 15 分钟后跟上。
 
 ## 致谢与免责
 
