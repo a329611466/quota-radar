@@ -39,6 +39,11 @@ const UPSTREAM = 'https://codex-resets.com/api/resets';
 const SNAPSHOT_KEY = 'snapshot';
 /** 快照保留 30 天，防止上游长期异常时留下过期数据。 */
 const SNAPSHOT_TTL = 60 * 60 * 24 * 30;
+/**
+ * 读时机会刷新：快照超过这个时长，就在响应前顺手向上游拉一次。
+ * Cron（15 分钟）只作为兜底，正常情况下数据延迟在 5 分钟以内。
+ */
+const STALE_AFTER_MS = 5 * 60 * 1000;
 
 interface Snapshot {
   version: number;
@@ -93,6 +98,13 @@ async function readSnapshot(env: Env): Promise<Snapshot | null> {
   }
 }
 
+/** 快照是否已过期。 */
+function isStale(snapshot: Snapshot | null): boolean {
+  if (!snapshot) return true;
+  const age = Date.now() - Date.parse(snapshot.generated_at);
+  return !Number.isFinite(age) || age > STALE_AFTER_MS;
+}
+
 export default {
   async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -103,6 +115,17 @@ export default {
       snapshot = await readSnapshot(env);
     } catch (error) {
       console.error(`kv read failed: ${(error as Error).message}`);
+    }
+
+    // 读时机会刷新：快照超过 5 分钟就当场拉一次上游，再返回最新结果。
+    // 拉取失败不会抛错——继续用旧快照，站点照常可用。
+    if (isStale(snapshot)) {
+      try {
+        await refreshSnapshot(env);
+        snapshot = await readSnapshot(env);
+      } catch (error) {
+        console.error(`opportunistic refresh failed: ${(error as Error).message}`);
+      }
     }
 
     if (url.pathname === '/api/resets') {
