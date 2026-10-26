@@ -11,9 +11,22 @@ name = "quota-watermark"
 compatibility_date = "2025-09-01"
 # Cloudflare 账号 ID（Workers & Pages → Overview → Account ID）
 account_id = "94c6721f6e9f94af1d9389a2199d98d0"
+main = "worker/index.ts"
 
+# 静态资源 + Worker 函数共存：静态资源交给 ASSETS 绑定，
+# /api/resets、/api/status、.ics、feed.xml 由 Worker 动态生成
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 # /en 自动补成 /en/，保证相对路径（../assets/）解析正确
 html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
+
+# 数据快照存 KV，Worker 定时从上游拉取后写入
+[[kv_namespaces]]
+binding = "RESETS"
+id = "052324df47804c91bdbd5d23cf8e0e55"
+
+# 每 15 分钟自动更新一次数据（免费版最多 3 个 cron，最小间隔 1 分钟）
+[triggers]
+crons = ["*/15 * * * *"]
