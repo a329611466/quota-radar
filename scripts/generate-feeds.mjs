@@ -16,7 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const DATA = resolve(ROOT, 'public/data/resets.json');
 const DIST = resolve(ROOT, 'dist');
-const SITE_ORIGIN = process.env.SITE_ORIGIN ?? '';
+const SITE_ORIGIN = process.env.SITE_ORIGIN ?? 'https://quota-watermark.rigoo.workers.dev';
 
 async function main() {
   const raw = JSON.parse(await readFile(DATA, 'utf8'));
@@ -26,7 +26,7 @@ async function main() {
   await writeFile(resolve(DIST, 'quota-watermark.ics'), buildIcs(events), 'utf8');
   console.log(`> wrote quota-watermark.ics (${events.length} events)`);
 
-  const siteUrl = SITE_ORIGIN || 'https://x.com/thsottiaux';
+  const siteUrl = SITE_ORIGIN;
   await writeFile(resolve(DIST, 'feed.xml'), buildRss(events, siteUrl), 'utf8');
   console.log('> wrote feed.xml');
 }
