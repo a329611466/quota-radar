@@ -83,19 +83,25 @@ jobs:
 站点数据不再依赖手动刷新。部署包含一个 Cloudflare Worker：
 
 ```
-用户 ──→ Worker ──┬── /api/resets   ← 从 KV 读（每 15 分钟由 Cron 更新）
+用户 ──→ Worker ──┬── /api/resets   ← KV 快照（读时机会刷新）
                    ├── /api/status   ← 最新一次重置 + 统计
                    ├── *.ics / feed.xml ← 动态生成的订阅源
                    └── 其余路径       → 静态资源（ASSETS 绑定）
 ```
 
-- **Cron Trigger**：`*/15 * * * *`（每 15 分钟）。Worker 从上游拉取数据、归一化后写入 **Workers KV**
-- **KV 命名空间**：`RESETS`，快照保留 30 天；上游异常时保留上一份数据，不会清空
-- **静态快照兜底**：`public/data/resets.json` 是构建期快照。KV 读失败时 `/api/resets` 自动回退到它，站点照常可用
+**两层更新机制，兼顾新鲜度与容灾：**
 
-免费额度足够：Cron 每天 96 次执行、KV 每天 1 次写、10 万次读，都在 Workers Free 限额内。
+1. **读时机会刷新**（主要路径）：每次请求 `/api/resets` 时，如果快照超过 **5 分钟**未更新，Worker 会在响应前当场向上游拉一次。所以**有人访问时，数据延迟在 5 分钟以内**
+2. **Cron Trigger**（兜底）：`*/15 * * * *`，每 15 分钟无条件拉一次。**没人访问时**靠它维持数据新鲜（比如凌晨有人推了重置，早上第一个访客看到的就是新的）
 
-想改成别的频率改 `wrangler.toml` 的 `crons` 即可（免费版每个 Worker 最多 3 个、最小间隔 1 分钟）。
+上游异常时两层都不会清空数据：拉取失败直接保留旧快照，站点照常展示。
+
+- **KV 命名空间**：`RESETS`，快照保留 30 天
+- **静态快照兜底**：`public/data/resets.json` 是构建期快照。KV 读失败时 `/api/resets` 自动回退到它
+
+免费额度足够：Cron 每天 96 次执行、KV 每天 10 万次读、1 千次写，都在 Workers Free 限额内。
+
+想改刷新间隔改 `wrangler.toml` 的 `crons`（兜底频率）和 `worker/index.ts` 的 `STALE_AFTER_MS`（机会刷新阈值）即可。
 
 ### 手动刷新数据（不走 Worker 时）
 
