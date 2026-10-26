@@ -67,7 +67,7 @@ export const zhTW: Dict = {
   'notify.enable': '開啟',
   'notify.disable': '關閉',
 
-    'brand.tag': '額度水位',
+    'brand.tag': '額度雷達',
   'forecast.title': '下次重置預測',
   'forecast.likelyOne': '大概率 {n} 天內重置',
   'forecast.likelyRange': '大概率 {from}–{to} 天內重置',

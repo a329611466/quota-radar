@@ -1,6 +1,6 @@
-# Watermark · 额度水位
+# Quota Radar · 额度雷达
 
-> 线上：<https://quota-watermark.rigoo.workers.dev>
+> 线上：<https://quota-radar.rigoo.workers.dev>
 
 独立追踪 OpenAI Codex 使用额度重置（usage limit reset）的工具站。
 
@@ -28,7 +28,7 @@ npm run build
 npx wrangler deploy
 ```
 
-产物地址形如 `https://quota-watermark.<你的子域>.workers.dev`。首次部署会要求注册 `workers.dev` 子域名。
+产物地址形如 `https://quota-radar.<你的子域>.workers.dev`。首次部署会要求注册 `workers.dev` 子域名。
 
 也可用 npm script：`npm run deploy:workers`（= build + `wrangler deploy`）。
 

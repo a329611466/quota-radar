@@ -1,5 +1,5 @@
 {
-  "name": "quota-watermark",
+  "name": "quota-radar",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit --pretty",
     "refresh-data": "node scripts/refresh-data.mjs",
-    "deploy:pages": "npm run build && npx wrangler pages deploy dist --project-name=quota-watermark",
+    "deploy:pages": "npm run build && npx wrangler pages deploy dist --project-name=quota-radar",
     "deploy:workers": "npm run build && npx wrangler deploy",
     "check:sync": "node scripts/check-sync.mjs"
   },

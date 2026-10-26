@@ -20,7 +20,7 @@ function stamp(date: Date): string {
 }
 
 /** 生成 iCalendar 日历（.ics），供系统日历订阅。 */
-export function buildIcs(events: ResetEvent[], calendarName = 'Watermark'): string {
+export function buildIcs(events: ResetEvent[], calendarName = 'Quota Radar'): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -58,7 +58,7 @@ export function buildIcs(events: ResetEvent[], calendarName = 'Watermark'): stri
 export function buildRss(
   events: ResetEvent[],
   siteUrl: string,
-  title = 'Watermark — Codex quota resets',
+  title = 'Quota Radar — Codex quota resets',
 ): string {
   const items = [...events]
     .sort((a, b) => Date.parse(b.announced_at) - Date.parse(a.announced_at))

@@ -165,7 +165,7 @@ export default {
       );
     }
 
-    if (url.pathname === '/quota-watermark.ics') {
+    if (url.pathname === '/quota-radar.ics') {
       const events = snapshot?.events ?? [];
       return new Response(buildIcs(events), {
         headers: {

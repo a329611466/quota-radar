@@ -69,7 +69,7 @@ export const ja: Dict = {
   'notify.enable': '有効にする',
   'notify.disable': '無効にする',
 
-    'brand.tag': 'クォータ監視',
+    'brand.tag': 'クォータレーダー',
   'forecast.title': '次回のリセット予測',
   'forecast.likelyOne': 'ほぼ {n} 日以内にリセット',
   'forecast.likelyRange': 'ほぼ {from}–{to} 日以内にリセット',

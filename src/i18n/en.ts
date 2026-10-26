@@ -67,7 +67,7 @@ export const en = {
   'notify.enable': 'ENABLE',
   'notify.disable': 'DISABLE',
 
-    'brand.tag': 'QUOTA WATCH',
+    'brand.tag': 'QUOTA RADAR',
   'forecast.title': 'Next reset forecast',
   'forecast.likelyOne': 'Most likely within {n} days',
   'forecast.likelyRange': 'Most likely within {from}–{to} days',

@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 
 const tree = JSON.parse(
   execSync(
-    'gh api "repos/a329611466/quota-watermark/git/trees/main?recursive=1"',
+    'gh api "repos/a329611466/quota-radar/git/trees/main?recursive=1"',
     { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 },
   ),
 );
@@ -41,7 +41,7 @@ const keyFiles = [
 
 for (const file of keyFiles) {
   const out = execSync(
-    `gh api "repos/a329611466/quota-watermark/contents/${file}" --jq .content`,
+    `gh api "repos/a329611466/quota-radar/contents/${file}" --jq .content`,
     { encoding: 'utf8' },
   );
   const remoteHash = execSync(`echo '${out}' | base64 -d | shasum | cut -c1-12`, {
@@ -57,7 +57,7 @@ for (const file of keyFiles) {
 
 // 远端 .gitignore 里是否已经忽略 .wrangler
 const gi = execSync(
-  `gh api "repos/a329611466/quota-watermark/contents/.gitignore" --jq .content`,
+  `gh api "repos/a329611466/quota-radar/contents/.gitignore" --jq .content`,
   { encoding: 'utf8' },
 );
 console.log(`\n远端 .gitignore 内容:\n${Buffer.from(gi, 'base64').toString()}`);

@@ -5,9 +5,9 @@
 #   npm run build && npx wrangler deploy
 #
 # 只想快速上线、不打算加 API 的话，更简单的是走 Pages：
-#   npm run build && npx wrangler pages deploy dist --project-name=quota-watermark
+#   npm run build && npx wrangler pages deploy dist --project-name=quota-radar
 
-name = "quota-watermark"
+name = "quota-radar"
 compatibility_date = "2025-09-01"
 # Cloudflare 账号 ID（Workers & Pages → Overview → Account ID）
 account_id = "94c6721f6e9f94af1d9389a2199d98d0"

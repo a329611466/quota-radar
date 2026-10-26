@@ -69,7 +69,7 @@ export const ko: Dict = {
   'notify.enable': '켜기',
   'notify.disable': '끄기',
 
-    'brand.tag': '쿼타 관측',
+    'brand.tag': '쿼타 레이더',
   'forecast.title': '다음 초기화 예측',
   'forecast.likelyOne': '대체로 {n}일 이내에 초기화',
   'forecast.likelyRange': '대체로 {from}–{to}일 이내에 초기화',

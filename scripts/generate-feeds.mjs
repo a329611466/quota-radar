@@ -16,15 +16,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const DATA = resolve(ROOT, 'public/data/resets.json');
 const DIST = resolve(ROOT, 'dist');
-const SITE_ORIGIN = process.env.SITE_ORIGIN ?? 'https://quota-watermark.rigoo.workers.dev';
+const SITE_ORIGIN = process.env.SITE_ORIGIN ?? 'https://quota-radar.rigoo.workers.dev';
 
 async function main() {
   const raw = JSON.parse(await readFile(DATA, 'utf8'));
   /** @type {import('../src/data/types.ts').ResetEvent[]} */
   const events = Array.isArray(raw.events) ? raw.events : [];
 
-  await writeFile(resolve(DIST, 'quota-watermark.ics'), buildIcs(events), 'utf8');
-  console.log(`> wrote quota-watermark.ics (${events.length} events)`);
+  await writeFile(resolve(DIST, 'quota-radar.ics'), buildIcs(events), 'utf8');
+  console.log(`> wrote quota-radar.ics (${events.length} events)`);
 
   const siteUrl = SITE_ORIGIN;
   await writeFile(resolve(DIST, 'feed.xml'), buildRss(events, siteUrl), 'utf8');

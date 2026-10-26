@@ -31,7 +31,7 @@ export function downloadCsv(events: ResetEvent[]): void {
       .join(','),
   );
   triggerDownload(
-    'quota-watermark-resets.csv',
+    'quota-radar-resets.csv',
     'text/csv;charset=utf-8',
     `${header.join(',')}\n${rows.join('\n')}\n`,
   );
@@ -39,7 +39,7 @@ export function downloadCsv(events: ResetEvent[]): void {
 
 export function downloadJson(events: ResetEvent[]): void {
   triggerDownload(
-    'quota-watermark-resets.json',
+    'quota-radar-resets.json',
     'application/json;charset=utf-8',
     `${JSON.stringify({ total: events.length, events }, null, 2)}\n`,
   );

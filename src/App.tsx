@@ -298,7 +298,7 @@ export default function App({ locale }: { locale: Locale }) {
               <button type="button" className="btn" onClick={() => downloadJson(events)}>
                 {t('export.json')}
               </button>
-              <a className="btn" href={assetUrl('quota-watermark.ics')} download>
+              <a className="btn" href={assetUrl('quota-radar.ics')} download>
                 {t('export.ics')}
               </a>
               <a className="btn" href={assetUrl('feed.xml')} target="_blank" rel="noopener noreferrer">

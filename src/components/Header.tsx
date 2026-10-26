@@ -52,7 +52,7 @@ export function Header({
     <header className="masthead">
       <div className="masthead-inner">
         <div className="brand">
-          <span className="brand__name">Watermark</span>
+          <span className="brand__name">Quota Radar</span>
           <span className="brand__tag">{labels.tag}</span>
         </div>
 
